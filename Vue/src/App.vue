@@ -1,43 +1,44 @@
 <template>
+  <!--NavBar-->
   <div class="container">
     <button :class="{ 'underline': Selected, 'gray': !Selected }" @click="Selected = true">Home</button>
-
     <button :class="{ 'underline': !Selected, 'gray': Selected }" @click="Selected = false">Settings</button>
   </div>
+
+  <!--User Interface-->
   <h1>Hello, User</h1>
-  <!--Form input to add a new medication name-->
-  <AddNew @createCard="newCard" />
-  <!--Section below form input to display all newly added medications-->
+  <input type="text" v-model="name" placeholder="Enter this" />
+  <div class="mt-2 d-flex justify-content-center">
+    <button class="btn btn-primary" @click="handleSubmit">SUBMIT</button>
+  </div>
+
+  <!--Medication Display-->
   <Medications :cards="medCards" />
 </template>
 
 <script>
-import AddNew from "./components/AddNew.vue";
 import Medications from "./components/Medications.vue";
 
 export default {
   name: "app",
   components: {
-    AddNew,
     Medications,
   },
   data() {
     return {
-      //When page is active use Selected class for underline
+      //Use Selected class for underline active page
       Selected: true,
-      medCards: [{
-
-      }
+      name: "",
+      medCards: [{}
       ],
     };
   },
   methods: {
-    newCard(card) {
-      this.medCards.push(card);
-
-    }
+    handleSubmit() {
+      this.medCards.push(this.name);
+    },
   }
-};
+}
 </script>
 
 <style>
