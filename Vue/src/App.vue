@@ -1,19 +1,22 @@
 <template>
+  <!-- <div class="container mx-auto bg-gray-500"> -->
   <!--NavBar-->
-  <div class="container">
+  <div>
     <button :class="{ 'underline': Selected, 'gray': !Selected }" @click="Selected = true">Home</button>
     <button :class="{ 'underline': !Selected, 'gray': Selected }" @click="Selected = false">Settings</button>
-  </div>
+    <!-- </div> -->
 
-  <!--User Interface-->
-  <h1>Hello, User</h1>
-  <input type="text" v-model="name" placeholder="Enter this" />
-  <div class="mt-2 d-flex justify-content-center">
-    <button class="btn btn-primary" @click="handleSubmit">SUBMIT</button>
-  </div>
+    <!--User Interface-->
+    <h1>Hello, User</h1>
+    <!-- <img src="./assets/people_standing.svg" />  -->
+    <input type="text" v-model="name" placeholder="Enter this" />
+    <div class="mt-2 d-flex justify-content-center">
+      <button class="btn btn-primary" @click="handleSubmit">SUBMIT</button>
+    </div>
 
-  <!--Medication Display connect medCards array to display page-->
-  <Medications :cards="medCards" />
+    <!--Medication Display connect medCards array to display page-->
+    <Medications :cards="medCards" />
+  </div>
 </template>
 
 <script>
@@ -36,9 +39,22 @@ export default {
   },
   methods: {
     handleSubmit() {
-      this.medCards.push({ name: this.name, reason: this.reason });
+      // this.medCards.push({ name: this.name, reason: this.reason });
+      fetch('http://localhost:4000/', {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: this.name })
+      })
+        .then(response => response.json())
+        //POST data to medCards array by creating a copy with spread operator
+        //and adding new inputs
+        .then(data => this.medCards = [...data])
+        .catch(error => {
+          console.log(error);
+        });
     },
   },
+  //GET list of medications from database
   async created() {
     await fetch('http://localhost:4000/')
       .then(res => res.json())
@@ -46,20 +62,6 @@ export default {
       .catch(err => console.log(err.message))
   }
 }
-  // async addMeds() {
-  // try {
-  //   await fetch('http://localhost:4000/', {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({ name: name })
-  //   })
-  //     .then(response => response.json())
-  //     .then(data => this.medCards = data)
-  //     .catch(error => {
-  //       console.log(error);
-  //     });
-  // }
-
 
 
 

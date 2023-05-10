@@ -1,6 +1,9 @@
 <template>
   <ul>
-    <li v-for="card in cards">{{ card.name }}</li>
+    <li v-for="card in cards">
+      {{ card.name }}
+      <!-- <button @click="handleDelete(card.name)">Delete</button> -->
+    </li>
   </ul>
 </template>
 
@@ -14,21 +17,23 @@ export default {
       // reason: "",
     };
   },
+  methods: {
+    // handleDelete(medName) {
+    //   if (confirm(`Are you sure you want to remove this?`)) {
+    //     fetch('http://localhost:4000/' + name, {
+    //       method: "DELETE",
+    //     })
+    //       .then(response => response.json())
+    //       .then(data => this.medCards = [...data])
+    //       .catch(error => {
+    //         console.log(error);
+    //       });
+    //   }
+    // console.log(medName)
 
-};
+  },
+}
 
-//Fetch requests from database
-//GET list of medications
-// const addMeds = {
-//   fetch('http://localhost:4000/').then(response => response.json()).then(name => name)
-  
-// }
-
-// const addMeds = {
-//   method: 'GET',
-//   headers: { "Content-Type": "application/json" },
-//   body: JSON.stringify({{name: name}})
-// }
 
 </script>
 

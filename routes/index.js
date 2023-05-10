@@ -14,11 +14,9 @@ router.get("/", function (req, res, next) {
 // POST a new medication to the list
 router.post("/", function (req, res, next) {
   let name = req.body.name;
-  let reason = req.body.reason;
-  let frequency = req.body.frequency;
-  db(
-    `INSERT INTO medications (name, reason, frequency) VALUES ('${name}', '${reason}', '${frequency}');`
-  ).then((result) => {
+  // let reason = req.body.reason;
+  // let frequency = req.body.frequency;
+  db(`INSERT INTO medications (name) VALUES ('${name}');`).then((result) => {
     //then return the list of medications from GET
     db("SELECT * FROM medications;")
       .then((result) => {
@@ -26,6 +24,16 @@ router.post("/", function (req, res, next) {
       })
       .catch((err) => res.status(500).send(err));
   });
+
+  // router.delete("/", function (req, res, next) {
+  //   db(`DELETE FROM medications WHERE name ='${name}';`).then((result) => {
+  //     db("SELECT * FROM medications;")
+  //       .then((result) => {
+  //         res.send(result.data);
+  //       })
+  //       .catch((err) => res.status(500).send(err));
+  //   });
+  // });
 });
 
 module.exports = router;
