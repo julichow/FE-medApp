@@ -12,7 +12,7 @@
     <button class="btn btn-primary" @click="handleSubmit">SUBMIT</button>
   </div>
 
-  <!--Medication Display-->
+  <!--Medication Display connect medCards array to display page-->
   <Medications :cards="medCards" />
 </template>
 
@@ -24,21 +24,45 @@ export default {
   components: {
     Medications,
   },
+
   data() {
     return {
       //Use Selected class for underline active page
       Selected: true,
       name: "",
-      medCards: [{}
-      ],
-    };
+      reason: "",
+      medCards: [{}],
+    }
   },
   methods: {
     handleSubmit() {
-      this.medCards.push(this.name);
+      this.medCards.push({ name: this.name, reason: this.reason });
     },
+  },
+  async created() {
+    await fetch('http://localhost:4000/')
+      .then(res => res.json())
+      .then(data => (this.medCards = data))
+      .catch(err => console.log(err.message))
   }
 }
+  // async addMeds() {
+  // try {
+  //   await fetch('http://localhost:4000/', {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({ name: name })
+  //   })
+  //     .then(response => response.json())
+  //     .then(data => this.medCards = data)
+  //     .catch(error => {
+  //       console.log(error);
+  //     });
+  // }
+
+
+
+
 </script>
 
 <style>
