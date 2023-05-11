@@ -1,21 +1,32 @@
 <template>
-  <!-- <div class="container mx-auto bg-gray-500"> -->
-  <!--NavBar-->
-  <div>
-    <button :class="{ 'underline': Selected, 'gray': !Selected }" @click="Selected = true">Home</button>
-    <button :class="{ 'underline': !Selected, 'gray': Selected }" @click="Selected = false">Settings</button>
-    <!-- </div> -->
+  <div class="@container px-20 py-10 bg-gray-400">
 
-    <!--User Interface-->
-    <h1>Hello, User</h1>
-    <!-- <img src="./assets/people_standing.svg" />  -->
-    <input type="text" v-model="name" placeholder="Enter this" />
-    <div class="mt-2 d-flex justify-content-center">
-      <button class="btn btn-primary" @click="handleSubmit">SUBMIT</button>
+    <!--NavBar-->
+    <div class="flex justify-end pb-6">
+
+      <button :class="{ 'navbar underline underline-offset-4': Selected, 'navbar': !Selected }"
+        @click="Selected = true">Home</button>
+      <button :class="{ 'navbar underline underline-offset-4': !Selected, 'navbar': Selected }" @click="Selected = false">
+        Settings </button>
+
     </div>
 
-    <!--Medication Display connect medCards array to display page-->
-    <Medications :cards="medCards" />
+    <!--User Interface-->
+    <div>
+      <h1 class="pb-6">Hello, User</h1>
+      <!-- <img src="./assets/people_standing.svg" />  -->
+      <div class="inputarea">
+        <input class="textbox" type="text" v-model="name" placeholder="Start by entering the name of a prescription:" />
+
+        <button
+          class="btn text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+          @click="handleSubmit">Enter</button>
+      </div>
+
+
+      <!--Medication Display connect medCards array to display page-->
+      <Medications :cards="medCards" />
+    </div>
   </div>
 </template>
 

@@ -1,8 +1,12 @@
 <template>
   <ul>
+
     <li v-for="card in cards">
-      {{ card.name }}
-      <!-- <button @click="handleDelete(card.name)">Delete</button> -->
+      <div class="row">
+        <div class="card">
+          <h2>{{ card.name }}</h2>
+        </div>
+      </div> <!-- <button @click="handleDelete(card.name)">Delete</button> -->
     </li>
   </ul>
 </template>
