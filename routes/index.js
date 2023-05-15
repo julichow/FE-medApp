@@ -17,7 +17,7 @@ router.post("/", function (req, res, next) {
   // let reason = req.body.reason;
   // let frequency = req.body.frequency;
   db(`INSERT INTO medications (name) VALUES ('${name}');`).then((result) => {
-    //then return the list of medications from GET
+    //using .then return the list of medications from GET
     db("SELECT * FROM medications;")
       .then((result) => {
         res.send(result.data);

@@ -28,7 +28,7 @@
 
           <button
             class="btn text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm text-center"
-            @click="handleSave">Save & Continue</button>
+            @click="handleSubmit()">Save & Continue</button>
 
           <!-- <button
             class="btn text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm text-center"
@@ -47,7 +47,7 @@ export default {
   name: "Modal",
   props: {
     show: Boolean,
-    close: Boolean
+    medname: String, //['medname']
   },
   data() {
     return {
@@ -56,32 +56,36 @@ export default {
       reason: "",
       doctor: "",
       modalError: "",
-      showModal: true,
       medCards: [{}],
+      // medname: "",
     }
   },
   methods: {
-    handleSave() {
-
-      // this.modalError = (this.frequency.length) && (this.dose.length) > 0 ?
-      //   "" : "Please complete all required fields";
-
-      this.handleSubmit()
-
-      // this.showModal = this.showModal ? false : true;
-      // this.close = false
-      // this.showModal = false
-      // emit('close', e.target.value)
-      //   if (this.modalError === "") {
-      //     console.log("items ready to post")
-      //   }
+    closeModal() {
+      this.$emit('close')
     },
+    async handleSubmit() {
 
-    handleSubmit() {
+      this.modalError = (this.frequency.length) && (this.dose.length) > 0 ?
+        "" : "Please complete all required fields";
+
+      await closeModal()
+      console.log("post")
+
+      // this.handlePost();
+      // this.showModal = false
+      // this.$emit('close')
+
+
+
+      // this.$emit('close')
+
+    },
+    handlePost() {
       fetch('http://localhost:4000/', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ frequency: this.frequency })
+        body: JSON.stringify({ medname: this.name })
       })
         .then(response => response.json())
         //POST data to medCards array by creating a copy with spread operator and adding new inputs
@@ -90,6 +94,9 @@ export default {
           console.log(error);
         });
     },
+    close() {
+      showModal = false
+    }
   },
 }
 

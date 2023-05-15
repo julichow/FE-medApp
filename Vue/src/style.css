@@ -104,6 +104,10 @@ input {
   color: #555;
 }
 
+input:invalid {
+  border-color: red;
+}
+
 label {
   display: inline-block;
   margin: 25px 0 15px;
@@ -165,6 +169,7 @@ h2 {
   font-weight: 500;
   font-family: inherit;
   transition: color 0.25s;
+  position: relative;
 }
 
 .btn:hover {

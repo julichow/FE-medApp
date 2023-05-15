@@ -4,10 +4,13 @@
 
       <li v-for="card in cards">
         <div class="card">
-          <h2>{{ card.name }}
-            <div v-if="dose = true" class="dose">{{ (card.dose) }}</div>
-          </h2>
+          <div class="w-1/2 w-1.5 border-b-2 border-gray-300">
 
+            <h2>{{ card.name }}
+              <div v-if="dose = true" class="dose">{{ (card.dose) }}</div>
+            </h2>
+
+          </div>
           <div v-if="frequency = true" class="dose"> Daily Frequency: {{ card.frequency }} Time(s) per day</div>
         </div>
 
