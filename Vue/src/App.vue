@@ -20,28 +20,34 @@
   <!--User Interface-->
   <div class="@container ">
     <div class="user p-10">
-      <div class="mx-10">
+      <div class="mx-20">
         <h1 class="pb-6">Hello, User</h1>
         <p>Enter the name of a prescription to get started:</p>
         <div class="inputarea">
-          <input class="textbox" type="text" v-model="name" placeholder="e.g. Tylenol" />
+          <input class="input" required type="text" v-model="name" placeholder="e.g. Tylenol" />
 
           <button
-            class="btn text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-            @click="[showModal = true]">Enter</button>
+            class="btn text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm text-center"
+            @click="checkInput(e)">Enter
+          </button>
         </div>
-      </div>
 
-      <!-- <Teleport to="body"> -->
-      <!-- use the modal component, pass in the prop -->
-      <!-- Modal Pop up -->
-      <Modal :show="showModal" @close="showModal = false">
-        <template #header>
-          <h2>{{ name }}</h2>
-        </template>
-      </Modal>
-      <!-- </Teleport> -->
+        <div class="text-red-600 font-medium" v-if="nameError">{{ nameError }}</div>
+
+      </div>
     </div>
+
+    <!-- <Teleport to="body"> -->
+    <!-- use the modal component, pass in the prop -->
+    <!-- Modal Pop up -->
+    <Modal :show="showModal" :close="showModal">
+      <!-- <Modal :show="showModal" @close="showModal = false"> -->
+      <template #header>
+        <h2>{{ name }}</h2>
+      </template>
+    </Modal>
+    <!-- </Teleport> -->
+
     <!--Medication Display connect medCards array to display page-->
     <Medications :cards="medCards" />
   </div>
@@ -64,22 +70,34 @@ export default {
       //Use Selected class for underline active page
       Selected: true,
       name: "",
-      // reason: "",
+      dose: "",
+      frequency: "",
       medCards: [{}],
       showModal: false,
+      nameError: "",
     }
   },
   methods: {
+    checkInput(e) {
+
+      this.nameError = this.name.length > 0 ? "" : "This field cannot be empty";
+
+      //If input field has content, open form and call handleSubmit function to post medication name
+      if (this.nameError === "") {
+        this.showModal = true,
+          this.handleSubmit()
+      }
+      e.preventDeafult()
+    },
     handleSubmit() {
-      // this.medCards.push({ name: this.name, reason: this.reason });
+
       fetch('http://localhost:4000/', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name: this.name })
       })
         .then(response => response.json())
-        //POST data to medCards array by creating a copy with spread operator
-        //and adding new inputs
+        //POST data to medCards array by creating a copy with spread operator and adding new inputs
         .then(data => this.medCards = [...data])
         .catch(error => {
           console.log(error);

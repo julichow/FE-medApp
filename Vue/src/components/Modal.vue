@@ -6,18 +6,37 @@
           <slot name="header" />
         </div>
 
-        <div class="modal-body">
-          <form>
-            <label>Dose:</label>
-            <input type="text" />
-          </form>
-        </div>
+        <div class="content-center">
+          <div class="modal-body">
 
-        <div class="modal-footer">
-          <slot name="footer">
-            <button class="modal-default-button" @click="[$emit('close'), handleSave]">Save & Continue</button>
-          </slot>
+            <form>
+              <label>Dose:</label>
+              <input type="text" required v-model="dose" />
+
+              <label>Reason:</label>
+              <input type="text" v-model="reason" />
+
+              <label>Daily Frequency: </label>
+              <input type="number" required v-model="frequency" />
+
+              <label>Prescribing Physician:</label>
+              <input type="text" v-model="doctor" />
+            </form>
+          </div>
+
+          <div class="text-red-600 font-medium" v-if="modalError">{{ modalError }}</div>
+
+          <button
+            class="btn text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm text-center"
+            @click="handleSave">Save & Continue</button>
+
+          <!-- <button
+            class="btn text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm text-center"
+            @click="[$emit('close')], handleSave">Save & Continue</button> -->
+
         </div>
+      </div>
+      <div>
       </div>
     </div>
   </Transition>
@@ -27,114 +46,53 @@
 export default {
   name: "Modal",
   props: {
-    show: Boolean
+    show: Boolean,
+    close: Boolean
   },
-
   data() {
     return {
-      name: "",
+      dose: "",
+      frequency: "",
+      reason: "",
+      doctor: "",
+      modalError: "",
+      showModal: true,
+      medCards: [{}],
     }
   },
   methods: {
     handleSave() {
-      // this.medCards.push({ name: this.name, reason: this.reason });
+
+      // this.modalError = (this.frequency.length) && (this.dose.length) > 0 ?
+      //   "" : "Please complete all required fields";
+
+      this.handleSubmit()
+
+      // this.showModal = this.showModal ? false : true;
+      // this.close = false
+      // this.showModal = false
+      // emit('close', e.target.value)
+      //   if (this.modalError === "") {
+      //     console.log("items ready to post")
+      //   }
+    },
+
+    handleSubmit() {
       fetch('http://localhost:4000/', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: this.name })
+        body: JSON.stringify({ frequency: this.frequency })
       })
         .then(response => response.json())
-        //POST data to medCards array by creating a copy with spread operator
-        //and adding new inputs
+        //POST data to medCards array by creating a copy with spread operator and adding new inputs
         .then(data => this.medCards = [...data])
         .catch(error => {
           console.log(error);
         });
     },
-  }
+  },
 }
 
 </script>
 
-<style>
-form {
-  margin: 30px auto;
-  text-align: left;
-  padding: 40px;
-  border-radius: 10px;
-}
-
-label {
-  color: #aaa;
-  display: inline-block;
-  margin: 25px 0 15px;
-  font-size: 0.6em;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: bold;
-}
-
-input {
-  display: block;
-  padding: 10px 6px;
-  width: 100%;
-  box-sizing: border-box;
-  border: none;
-  border-bottom: 3px solid #ddd;
-  color: #555;
-}
-
-.modal-mask {
-  position: fixed;
-  z-index: 9998;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  transition: opacity 0.3s ease;
-}
-
-.modal-container {
-  width: 600px;
-  margin: auto;
-  padding: 20px 30px;
-  background-color: #fff;
-  border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
-  transition: all 0.3s ease;
-}
-
-.modal-body {
-  margin: 20px 0;
-  background: #eee;
-}
-
-.modal-default-button {
-  float: right;
-}
-
-/*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
-
-.modal-enter-from {
-  opacity: 0;
-}
-
-.modal-leave-to {
-  opacity: 0;
-}
-
-.modal-enter-from .modal-container,
-.modal-leave-to .modal-container {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
-}
-</style>
+<style></style>

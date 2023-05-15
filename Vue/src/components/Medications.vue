@@ -1,15 +1,19 @@
 <template>
   <ul>
-    <div class="mx-10 grid grid-cols-1 sm:grid-cols-2">
-      <!-- <div class="gridin"> -->
+    <div class="mx-20 grid grid-cols-1 sm:grid-cols-2">
+
       <li v-for="card in cards">
         <div class="card">
-          <h2>{{ card.name }}</h2>
+          <h2>{{ card.name }}
+            <div v-if="dose = true" class="dose">{{ (card.dose) }}</div>
+          </h2>
+
+          <div v-if="frequency = true" class="dose"> Daily Frequency: {{ card.frequency }} Time(s) per day</div>
         </div>
 
         <!-- <button @click="handleDelete(card.name)">Delete</button> -->
       </li>
-      <!-- </div> -->
+
     </div>
   </ul>
 </template>
@@ -21,7 +25,8 @@ export default {
   data() {
     return {
       name: "",
-      // reason: "",
+      dose: "",
+      frequency: "",
     };
   },
   methods: {
