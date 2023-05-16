@@ -61,41 +61,24 @@ export default {
     }
   },
   methods: {
-    closeModal() {
-      this.$emit('close')
-    },
-    async handleSubmit() {
-
+    handleSubmit() {
       this.modalError = (this.frequency.length) && (this.dose.length) > 0 ?
         "" : "Please complete all required fields";
 
-      await closeModal()
-      console.log("post")
-
-      // this.handlePost();
-      // this.showModal = false
-      // this.$emit('close')
-
-
-
-      // this.$emit('close')
-
-    },
-    handlePost() {
       fetch('http://localhost:4000/', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ medname: this.name })
+        body: JSON.stringify({ name: this.medname })
       })
         .then(response => response.json())
         //POST data to medCards array by creating a copy with spread operator and adding new inputs
-        .then(data => this.medCards = [...data])
+        .then(data => {
+          this.medCards = [...data]
+          this.$emit('close')
+        })
         .catch(error => {
           console.log(error);
         });
-    },
-    close() {
-      showModal = false
     }
   },
 }
