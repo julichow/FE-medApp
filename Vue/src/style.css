@@ -80,19 +80,7 @@ p {
   align-items: flex-end;
   display: flex;
 }
-/* .inputarea {
-  display: flex;
-  align-items: flex-end;
-  margin-top: 10px;
-}
-.textbox {
-  border-radius: 2px;
-  background-color: #f2f2f2;
-  padding: 10px;
-  width: 70%;
-  margin-right: 10px;
-  margin-bottom: 20px;
-} */
+
 /* MODAL */
 input {
   display: flex;
@@ -113,6 +101,19 @@ label {
   margin: 25px 0 15px;
   font-size: 1em;
   font-weight: bold;
+}
+
+.btn {
+  padding: 0.7em 1.2em;
+  font-size: 1.1em;
+  font-weight: 500;
+  font-family: inherit;
+  transition: color 0.25s;
+  position: relative;
+}
+
+.btn:hover {
+  color: rgb(59, 120, 201);
 }
 
 .modal-mask {
@@ -163,17 +164,27 @@ h2 {
   font-weight: 500;
 }
 
-.btn {
-  padding: 0.7em 1.2em;
-  font-size: 1.1em;
-  font-weight: 500;
-  font-family: inherit;
-  transition: color 0.25s;
-  position: relative;
+.card p {
+  padding: 5px 0;
+  font-size: 1em;
+  color: black;
 }
 
-.btn:hover {
-  color: rgb(59, 120, 201);
+.dose {
+  color: gray;
+  display: inline-block;
+  font-size: 0.7em;
+}
+
+.icon {
+  height: 25px;
+  position: absolute;
+  bottom: 15px;
+  right: 30px;
+}
+
+.icon:hover {
+  filter: invert(100%);
 }
 
 .card {
@@ -215,18 +226,8 @@ h2 {
   color: #ffffff;
 }
 
-.card p {
-  padding: 10px 0;
-}
-
-.dose {
-  color: gray;
-  display: inline-block;
-  font-size: 0.7em;
-}
-
 /* RESPONSIVE ELEMENTS */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 800px) {
   input[type="submit"] {
     width: 100%;
     margin-top: 0;
@@ -234,8 +235,11 @@ h2 {
   .card {
     width: 80%;
   }
-  .gridin {
-    width: 50%;
+  h2 {
+    font-size: 1em;
+  }
+  .card p {
+    font-size: 0.8em;
   }
 }
 

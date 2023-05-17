@@ -8,10 +8,18 @@
 
     <!--NAV BAR-->
     <div class="float-right">
-      <button :class="{ 'nav underline underline-offset-4': Selected, 'nav': !Selected }"
-        @click="Selected = true">Home</button>
-      <button :class="{ 'nav underline underline-offset-4': !Selected, 'nav': Selected }"
-        @click="Selected = false">Medications </button>
+      <router-link to="/">
+        <button :class="{ 'nav underline underline-offset-4': Selected, 'nav': !Selected }" @click="Selected = true">Home
+        </button>
+      </router-link>
+
+      <router-link to="/Medications">
+        <button :class="{ 'nav underline underline-offset-4': !Selected, 'nav': Selected }"
+          @click="Selected = false">Medications
+        </button>
+      </router-link>
+
+      <router-view></router-view>
     </div>
   </div>
 
@@ -21,7 +29,7 @@
 
       <div class="mx-10">
         <h1 class="pb-6">Hello, User</h1>
-        <p></p>
+        <p>Please enter the name of a prescription to begin:</p>
         <div class="inputarea">
           <input class="textbox" type="text" required v-model="name" placeholder="e.g. Tylenol" />
 
@@ -37,6 +45,7 @@
       <!-- <Teleport to="body"> -->
       <!-- use the modal component, pass in the prop -->
       <!-- Modal Pop up -->
+      <!-- Pass from modal to medication updated medcards array using $emit-->
       <Modal :show="showModal" @close="showModal = false" :medname="name">
         <!-- <Modal :show="showModal" @close="showModal = false" :medname="name"> -->
         <template #header>
@@ -50,6 +59,7 @@
     <Medications :cards="medCards" />
   </div>
 </template>
+
 
 <script>
 import Medications from "./components/Medications.vue";
@@ -68,8 +78,6 @@ export default {
       Selected: true,
       //Medication card components
       name: "",
-      reason: "",
-      frequency: "",
       //Medication cards array to store user inputs
       medCards: [{}],
       //Input form modal
@@ -85,14 +93,25 @@ export default {
       // If input field has content, open form and call handleSubmit from Modal to post info to Medication component
       if (this.nameError === "") {
         this.showModal = true
-        this.handleSubmit()
       }
-      e.preventDefault()
+
+      // fetch('http://localhost:4000/', {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify({ name: this.name })
+      // })
+      //   .then(response => response.json())
+      //   //POST data to medCards array by creating a copy with spread operator
+      //   //and adding new inputs
+      //   .then(data => this.medCards = [...data])
+      //   .catch(error => {
+      //     console.log(error);
+      //   });
     },
   },
   //GET list of medications from database
-  async created() {
-    await fetch('http://localhost:4000/')
+  created() {
+    fetch('http://localhost:4000/')
       .then(res => res.json())
       .then(data => (this.medCards = data))
       .catch(err => console.log(err.message))
