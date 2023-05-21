@@ -1,25 +1,19 @@
 <template>
   <div class="navpanel absolute">
-    <!-- LOGO/ICON -->
+
+    <!-- ICON & NAVBAR-->
     <div class="left">
       <img src="./assets/pill_icon.png" class="logo" alt="Med App" />
       <h4>MedApp</h4>
     </div>
 
-    <!--NAV BAR-->
     <div class="float-right">
-      <router-link to="/">
-        <button :class="{ 'nav underline underline-offset-4': Selected, 'nav': !Selected }" @click="Selected = true">Home
-        </button>
-      </router-link>
+      <button :class="{ 'nav underline underline-offset-4': Selected, 'nav': !Selected }" @click="Selected = true">Home
+      </button>
 
-      <router-link to="/medications">
-        <button :class="{ 'nav underline underline-offset-4': !Selected, 'nav': Selected }"
-          @click="Selected = false">Medications
-        </button>
-      </router-link>
-
-      <router-view></router-view>
+      <button :class="{ 'nav underline underline-offset-4': !Selected, 'nav': Selected }"
+        @click="Selected = false">Medications
+      </button>
     </div>
   </div>
 
@@ -40,12 +34,13 @@
             @click="checkInput(e)">Enter</button>
 
         </div>
+
         <!-- Error message if input field is empty -->
         <div class="py-2 text-red-600 font-medium" v-if="nameError">{{ nameError }}</div>
       </div>
 
-      <!-- Modal Pop up -->
-      <!-- Pass from modal to medication updated medcards array using $emit-->
+      <!-- MODAL POP UP COMPONENT-->
+      <!-- Passing from modal to medication updated medcards array using $emit-->
       <Modal :show="showModal" @close="showModal = false" :medname="name" @updatedmedCards="updateMeds">
         <template #header>
           <h2 class=" w-3/4 w-1.5 border-b-2 border-gray-300">{{ name }}</h2>
@@ -54,7 +49,9 @@
     </div>
 
     <!--MEDICATION COMPONENT-->
-    <Medications :cards="medCards" @delete="deleteCard" />
+    <div ref="medications">
+      <Medications :cards="medCards" @delete="deleteCard" />
+    </div>
   </div>
 </template>
 
@@ -63,8 +60,8 @@
 import Medications from "./components/Medications.vue";
 import Modal from "./components/Modal.vue";
 
-
 export default {
+
   name: "app",
   components: {
     Medications,
@@ -74,11 +71,9 @@ export default {
     return {
       //Use Selected class for navbar if active
       Selected: true,
-      //Medication card components
+      //Medication card and and arary
       name: "",
-      //Medication cards array to store user inputs
       medCards: [{}],
-      //Input form modal
       showModal: false,
       nameError: "",
     }
@@ -93,7 +88,6 @@ export default {
     checkInput(e) {
       this.nameError = this.name.length > 0 ? "" : "This field cannot be empty";
 
-      // If input field has content, open form and call handleSubmit from Modal to post info to Medication component
       if (this.nameError === "") {
         this.showModal = true
       }
@@ -110,13 +104,5 @@ export default {
 
 </script>
 
-<style>
-.modal-body {
-  min-width: 300px;
-}
-
-
-.btn-space {
-  margin-right: 5px !important;
-}
-</style>
+<style></style>
+  

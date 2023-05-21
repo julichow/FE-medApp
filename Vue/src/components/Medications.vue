@@ -10,7 +10,6 @@
           </h2>
           <div class="w-1/2 w-1.5 border-b-2 border-gray-300" />
 
-          <!-- Display TIME or TIMES depending on frequency amount -->
           <p v-if="card.frequency > 1"><strong>Daily Frequency:</strong> {{ card.frequency }} times a day</p>
           <p v-else> <strong>Daily Frequency:</strong> {{ card.frequency }} time a day</p>
 
@@ -21,12 +20,8 @@
           <button @click="handleDelete(card.id)">
             <img src="../assets/delete.png" class="icon">
           </button>
-
         </div>
-
-
       </li>
-
     </div>
   </ul>
 </template>
@@ -61,7 +56,7 @@ export default {
             console.log(error);
           });
       }
-      // location.reload()
+
     }
   }
 }
