@@ -8,7 +8,8 @@
     </div>
 
     <div class="float-right">
-      <button :class="{ 'nav underline underline-offset-4': Selected, 'nav': !Selected }" @click="Selected = true">Home
+      <button :class="{ 'nav underline underline-offset-4': Selected, 'nav': !Selected }" 
+      @click="Selected = true">Home
       </button>
 
       <button :class="{ 'nav underline underline-offset-4': !Selected, 'nav': Selected }"
@@ -40,7 +41,7 @@
       </div>
 
       <!-- MODAL POP UP COMPONENT-->
-      <!-- Passing from modal to medication updated medcards array using $emit-->
+      <!-- step 2:Passing from modal to medication updated medcards array using $emit-->
       <Modal :show="showModal" @close="showModal = false" :medname="name" @updatedmedCards="updateMeds">
         <template #header>
           <h2 class=" w-3/4 w-1.5 border-b-2 border-gray-300">{{ name }}</h2>
@@ -50,6 +51,7 @@
 
     <!--MEDICATION COMPONENT-->
     <div ref="medications">
+    <!-- step 2: pass the prop down, using attributes -->
       <Medications :cards="medCards" @delete="deleteCard" />
     </div>
   </div>
@@ -57,18 +59,21 @@
 
 
 <script>
+//1. Import the component
 import Medications from "./components/Medications.vue";
 import Modal from "./components/Modal.vue";
 
 export default {
-
+//the name o this file is useful for debugging 
   name: "app",
+//2. declare the component
   components: {
     Medications,
     Modal,
   },
   data() {
     return {
+      //a property with a boolean value. true = Home display & false = Mediations displayed
       //Use Selected class for navbar if active
       Selected: true,
       //Medication card and and arary

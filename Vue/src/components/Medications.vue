@@ -30,6 +30,7 @@
 
 export default {
   name: "Medications",
+  //step 1: declare the props in the child component
   props: ["cards"],
   data() {
     return {

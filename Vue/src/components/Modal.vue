@@ -41,6 +41,7 @@
 <script>
 export default {
   name: "Modal",
+  //step 1: declare the props in the child component
   props: {
     show: Boolean,
     medname: String, //['medname']
