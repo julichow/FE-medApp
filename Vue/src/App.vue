@@ -4,16 +4,18 @@
     <!-- ICON & NAVBAR-->
     <div class="left">
       <img src="./assets/pill_icon.png" class="logo" alt="Med App" />
-      <h4>MedApp</h4>
+      <h3>MedApp</h3>
     </div>
 
     <div class="float-right">
       <button :class="{ 'nav underline underline-offset-4': Selected, 'nav': !Selected }" 
-      @click="Selected = true">Home
+      @click="Selected = true">
+      Home
       </button>
 
       <button :class="{ 'nav underline underline-offset-4': !Selected, 'nav': Selected }"
-        @click="Selected = false">Medications
+        @click="Selected = false">
+        Medications
       </button>
     </div>
   </div>
@@ -28,8 +30,10 @@
           <p>Please enter the name of a prescription to begin:</p>
         </label>
         <div class="inputarea">
+          <!-- required prevent form submission if the input field is empty -->
           <input class="textbox" type="text" required v-model="name" placeholder="e.g. Tylenol" />
 
+            <!-- checkInput is triggered when Enter button clicked -->
           <button
             class="btn text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
             @click="checkInput(e)">Enter</button>
@@ -52,7 +56,7 @@
     <!--MEDICATION COMPONENT-->
     <div ref="medications">
     <!-- step 2: pass the prop down, using attributes -->
-      <Medications :cards="medCards" @delete="deleteCard" />
+      <Medications :cards="medCards" @deleted="deleteCard" @put="editCard"/>
     </div>
   </div>
 </template>
@@ -64,8 +68,8 @@ import Medications from "./components/Medications.vue";
 import Modal from "./components/Modal.vue";
 
 export default {
-//the name o this file is useful for debugging 
-  name: "app",
+//the name of this file is useful for debugging 
+  name: "App",
 //2. declare the component
   components: {
     Medications,
@@ -76,7 +80,7 @@ export default {
       //a property with a boolean value. true = Home display & false = Mediations displayed
       //Use Selected class for navbar if active
       Selected: true,
-      //Medication card and and arary
+      //Medication card and and array
       name: "",
       medCards: [{}],
       showModal: false,
@@ -87,12 +91,17 @@ export default {
     deleteCard(meds) {
       this.medCards = [...meds]
     },
+    editCard(meds) {
+      this.medCards = [...meds]
+    },
     updateMeds(meds) {
       this.medCards = [...meds]
     },
     checkInput(e) {
+    //ternary operator - if name.length > 0, user has entered a field and there are no errors. if name.length < 0, we will receive a prompt that "this field cannot be empty"
       this.nameError = this.name.length > 0 ? "" : "This field cannot be empty";
 
+    //if input field is not empty, it will display the Modal component 
       if (this.nameError === "") {
         this.showModal = true
       }

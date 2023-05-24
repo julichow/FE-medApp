@@ -184,14 +184,24 @@ h2 {
   font-size: 0.7em;
 }
 
-.icon {
+.delete-icon {
   height: 25px;
   position: absolute;
   bottom: 15px;
   right: 30px;
 }
 
-.icon:hover {
+.delete-icon:hover:hover {
+  filter: invert(100%);
+}
+
+.edit-icon {
+  height: 25px;
+  position: absolute;
+  bottom: 15px;
+  right: 60px;
+}
+.edit-icon:hover:hover {
   filter: invert(100%);
 }
 

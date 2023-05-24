@@ -1,5 +1,6 @@
 <template>
   <Transition name="modal">
+    <!-- when show is true, it will display modal  -->
     <div v-if="show" class="modal-mask">
       <div class="modal-container">
         <div class="modal-header">
@@ -21,6 +22,9 @@
 
               <label>Prescribing Physician:</label>
               <input type="text" v-model="doctor" />
+
+              <label>Date and Time:</label>
+              <input type="datetime-local" v-model="date_time" />
             </form>
           </div>
 
@@ -53,6 +57,7 @@ export default {
       frequency: 0,
       doctor: "",
       modalError: "",
+      date_time: "",
       medCards: [{}],
     }
   },
@@ -74,6 +79,7 @@ export default {
             reason: this.reason,
             frequency: this.frequency,
             doctor: this.doctor,
+            date_time: this.date_time
           })
         })
           .then(response => response.json())
@@ -87,6 +93,7 @@ export default {
             this.reason = '';
             this.frequency = 0;
             this.doctor = '';
+            this.date_time = ''; 
             this.$emit('close')
           })
           .catch(error => {

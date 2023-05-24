@@ -50,11 +50,11 @@ view data via postman POST: localhost:4000/medications
 */
 
 router.post("/medications", async (req, res, next) => {
-  const { name, dose, reason, frequency, doctor } = req.body;
+  const { name, dose, reason, frequency, doctor, date_time } = req.body;
 //console.log(req.body)
   try {
     //insert new medication. Id will be auto incremented
-    await db(`INSERT INTO medications (name, frequency, dose, reason, doctor) VALUES ('${name}','${frequency}','${dose}','${reason}','${doctor}');`);
+    await db(`INSERT INTO medications (name, frequency, dose, reason, doctor) VALUES ('${name}','${frequency}','${dose}','${reason}','${doctor}', '${date_time}');`);
     //get an updated list of medications
     let results = await db("SELECT * FROM medications;");
     res.send(results.data);
@@ -99,11 +99,11 @@ view data via postman POST: localhost:4000/medications/:id
 router.put("/medications/:id", async (req, res, next) => {
   const { id } = req.params;
   //console.log(req.params)
-  const { name, dose, reason, frequency, doctor } = req.body;
+  const { name, dose, reason, frequency, doctor, date_time } = req.body;
   //console.log(req.body)
   try {
     // Update the medication with the specified id
-    await db(`UPDATE medications SET name='${name}', dose='${dose}', reason='${reason}', frequency='${frequency}', doctor='${doctor}' WHERE id=${id};`);
+    await db(`UPDATE medications SET name='${name}', dose='${dose}', reason='${reason}', frequency='${frequency}', doctor='${doctor}', date_time='${date_time}' WHERE id=${id};`);
     // Get an updated list of medications
     let results = await db("SELECT * FROM medications;");
     res.send(results.data);
