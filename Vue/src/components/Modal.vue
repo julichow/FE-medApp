@@ -58,7 +58,6 @@ export default {
       doctor: "",
       modalError: "",
       date_time: "",
-      medCards: [{}],
     }
   },
   methods: {

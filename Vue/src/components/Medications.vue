@@ -51,51 +51,23 @@ export default {
   methods: {
     handleDelete(id) {
       if (confirm(`Are you sure you want to remove this?`)) {
-        fetch(`http://localhost:4000/medications/${id}`, {
+        fetch(`http://localhost:4000/${id}`, {
           method: "DELETE",
         })
           .then(response => response.json())
           .then(data => {
             // this.medCards = [...data]
-            this.$emit('deleted', data)
+            this.$emit('delete', data)
           })
           .catch(error => {
             console.log(error);
           });
       }
-    }, 
-    handleEdit(card) {
-      // Set the data properties with the values from the selected card
-      this.name = card.name;
-      this.dose = card.dose;
-      this.reason = card.reason;
-      this.frequency = card.frequency;
-      this.doctor = card.doctor;
-      
-      // Make the PUT request to update the card
-      const updatedData = {
-        name: this.name,
-        dose: this.dose,
-        reason: this.reason,
-        frequency: this.frequency,
-        doctor: this.doctor
-      };
 
-      fetch(`http://localhost:4000/medications/${card.id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updatedData)
-      })
-        .then(response => response.json())
-        .then(data => {
-          this.$emit("put", data);
-        })
-        .catch(error => {
-          console.log(error);
-        });
-}
+    }
   }
 }
+  
 
 </script>
 
