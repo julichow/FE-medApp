@@ -54,7 +54,7 @@ router.post("/medications", async (req, res, next) => {
 //console.log(req.body)
   try {
     //insert new medication. Id will be auto incremented
-    await db(`INSERT INTO medications (name, frequency, dose, reason, doctor) VALUES ('${name}','${frequency}','${dose}','${reason}','${doctor}', '${date_time}');`);
+    await db(`INSERT INTO medications (name, frequency, dose, reason, doctor, date_time) VALUES ('${name}','${frequency}','${dose}','${reason}','${doctor}', '${date_time}');`);
     //get an updated list of medications
     let results = await db("SELECT * FROM medications;");
     res.send(results.data);
@@ -93,7 +93,7 @@ router.delete("/medications/:id", async (req, res, next) => {
 });
 
 /* UPDATE a medication to the list
-view data via postman POST: localhost:4000/medications/:id
+view data via postman PUT: localhost:4000/medications/:id
 */
 
 router.put("/medications/:id", async (req, res, next) => {
