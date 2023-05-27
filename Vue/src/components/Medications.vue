@@ -17,7 +17,7 @@
 
           <p v-if="card.doctor"><strong>Prescribing Physician:</strong> {{ card.doctor }}</p>
 
-          <p v-if="card.date_time"><strong>Date and Time:</strong> {{ card.date_time }}</p>
+          <p v-if="card.date_time"><strong>Date and Time:</strong> {{ formatDate(card.date_time) }}</p>
 
           <button @click="handleDelete(card.id)">
             <img src="../assets/delete.png" class="delete-icon">
@@ -32,6 +32,9 @@
 </template>
 
 <script>
+//1. install moment onto git 
+//2. import moment
+import moment from 'moment';
 
 export default {
   name: "Medications",
@@ -63,8 +66,10 @@ export default {
             console.log(error);
           });
       }
-
-    }
+    },
+    formatDate(date) {
+    return moment(date).format('YYYY-MM-DD HH:mm:ss');
+  }
   }
 }
   

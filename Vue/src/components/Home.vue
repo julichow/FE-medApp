@@ -34,8 +34,15 @@
     </div>
 </template>
 <script>
+//1. Import the component
+import Modal from "./Modal.vue";
+
 export default {
   name: "Home",
+  //2. declare the component
+  components: {
+    Modal,
+  },
   data() {
     return {
       showModal: false,
@@ -46,9 +53,6 @@ export default {
     }
   }, 
   methods: {
-    childUpdatemedsCards(meds) {
-      this.$emit ('updatedmedCards')
-    },
     checkInput(e) {
     //ternary operator - if name.length > 0, user has entered a field and there are no errors. if name.length < 0, we will receive a prompt that "this field cannot be empty"
       this.nameError = this.name.length > 0 ? "" : "This field cannot be empty";

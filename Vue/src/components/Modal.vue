@@ -43,6 +43,7 @@
 </template>
 
 <script>
+
 export default {
   name: "Modal",
   //step 1: declare the props in the child component
@@ -98,10 +99,6 @@ export default {
             console.log(error);
           });
       }
-
-
-      // location.reload()
-
     },
   }
 }
