@@ -9,6 +9,7 @@
           <p>Please enter the name of a prescription to begin:</p>
         </label>
         <div class="inputarea">
+          
           <!-- required prevent form submission if the input field is empty -->
           <input class="textbox" type="text" required v-model="name" placeholder="e.g. Tylenol" />
 
@@ -32,6 +33,11 @@
       </Modal>
     </div>
     </div>
+    
+    <img src="https://img.freepik.com/premium-photo/healthcare-medical-doctor-working-with-professional-team-physician-nursing-assistant_34200-767.jpg?w=2000" 
+    alt="Medical App Image"
+    />
+
 </template>
 <script>
 //1. Import the component

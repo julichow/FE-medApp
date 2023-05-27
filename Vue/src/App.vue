@@ -50,7 +50,6 @@ export default {
       //Use Selected class for navbar if active
       Selected: true,
       medCards: [{}],
-      updatemedsCards: '',
     }
   },
   methods: {
@@ -59,9 +58,6 @@ export default {
     },
   updateMeds(meds) {
     this.medCards = [...meds];
-    },
-    childUpdatemedsCards(meds) {
-      this.updatemedsCards = meds;
     }
   },
   //GET list of medications from database
