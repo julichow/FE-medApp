@@ -26,9 +26,9 @@
       <!-- MODAL POP UP COMPONENT-->
       <!-- step 2:Passing from modal to medication updated medcards array using $emit-->
       <Modal :show="showModal" @close="showModal = false" :medname="name" @updatedmedCards="updateMeds">
-        <template #header>
-          <h2 class=" w-3/4 w-1.5 border-b-2 border-gray-300">{{ name }}</h2>
-        </template>
+      <template #header>
+       <h2 class=" w-3/4 w-1.5 border-b-2 border-gray-300">{{ name }}</h2>
+      </template>
       </Modal>
     </div>
     </div>
@@ -46,8 +46,8 @@ export default {
     }
   }, 
   methods: {
-    updateMeds(meds) {
-      this.medCards = [...meds]
+    childUpdatemedsCards(meds) {
+      this.$emit ('updatedmedCards')
     },
     checkInput(e) {
     //ternary operator - if name.length > 0, user has entered a field and there are no errors. if name.length < 0, we will receive a prompt that "this field cannot be empty"

@@ -69,7 +69,7 @@ export default {
         // this.handlePost()
         //   }
 
-        fetch('http://localhost:4000/', {
+        fetch('http://localhost:4000/medications', {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -85,7 +85,6 @@ export default {
           //POST data to medCards array by creating a copy with spread operator and adding new inputs
 
           .then(data => {
-            // this.medCards = [...data],
             this.$emit('updatedmedCards', data)
             //Reset modal
             this.dose = '';

@@ -23,7 +23,7 @@
     <!--MEDICATION & HOME COMPONENT-->
     <div ref="medications">
     <!-- step 2: pass the prop down, using attributes -->
-      <Home v-if="Selected"/>
+      <Home v-if="Selected"  @updatedmedCards="updateMeds" />
       <Medications v-else="!Selected" :cards="medCards" @deleted="deleteCard"/>
     </div>
 </template>
@@ -50,12 +50,19 @@ export default {
       //Use Selected class for navbar if active
       Selected: true,
       medCards: [{}],
+      updatemedsCards: '',
     }
   },
   methods: {
     deleteCard(meds) {
       this.medCards = [...meds]
     },
+  updateMeds(meds) {
+    this.medCards = [...meds];
+    },
+    childUpdatemedsCards(meds) {
+      this.updatemedsCards = meds;
+    }
   },
   //GET list of medications from database
   created() {
