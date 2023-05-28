@@ -26,7 +26,7 @@
         </div>
       </li>
     </div>
-    <div> 
+    <div v-if="showEditForm"> 
       <form @submit="handleSubmit">
         <label>Name:</label>
         <input type="text" v-model="name" />
@@ -65,6 +65,7 @@ export default {
       reason: "",
       frequency: 0,
       doctor: "",
+      showEditForm: false,
     };
   },
   methods: {
@@ -89,6 +90,8 @@ export default {
       this.reason = card.reason;
       this.frequency = card.frequency;
       this.doctor = card.doctor;
+      //show the form when handleEdit is clicked
+      this.showEditForm = true; 
     },
     handleSubmit(event) {
   event.preventDefault();
@@ -127,8 +130,6 @@ export default {
       .then(response => response.json())
       .then(data => {
         this.$emit("put", data);
-        // Clear the form after successful creation
-        this.clearForm();
       })
       .catch(error => {
         console.log(error);
@@ -142,6 +143,8 @@ export default {
   this.reason = "";
   this.frequency = 0;
   this.doctor = "";
+  //Hide the form after clearing
+  this.showEditForm = false;
 },
     formatDate(date) {
       return moment(date).format('YYYY-MM-DD HH:mm:ss');
