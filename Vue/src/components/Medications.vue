@@ -43,8 +43,11 @@
         <label>Prescribing Physician:</label>
         <input type="text" v-model="doctor" />
 
+        <label>Date and Time:</label>
+        <input type="datetime-local" v-model="time_date" />
+
         <button type="submit">
-  {{ selectedMedicationId ? "Save" : "Update & Save" }}
+        {{ selectedMedicationId ? "Save" : "Update & Save" }}
 </button>
       </form>
     </div>
@@ -65,6 +68,7 @@ export default {
       reason: "",
       frequency: 0,
       doctor: "",
+      date_time: "",
       showEditForm: false,
     };
   },
@@ -90,18 +94,22 @@ export default {
       this.reason = card.reason;
       this.frequency = card.frequency;
       this.doctor = card.doctor;
+      this.date_time = card.date_time;
       //show the form when handleEdit is clicked
       this.showEditForm = true; 
     },
     handleSubmit(event) {
   event.preventDefault();
 
+  const formattedDateTime = moment(this.time_date).format('YYYY-MM-DD HH:mm:ss');
+  
   const updatedData = {
     name: this.name,
     dose: this.dose,
     reason: this.reason,
     frequency: this.frequency,
     doctor: this.doctor,
+    date_time: formattedDateTime,
   };
 
   if (this.selectedMedicationId) {
@@ -143,6 +151,7 @@ export default {
   this.reason = "";
   this.frequency = 0;
   this.doctor = "";
+  this.date_time = "";
   //Hide the form after clearing
   this.showEditForm = false;
 },

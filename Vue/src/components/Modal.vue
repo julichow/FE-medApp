@@ -5,6 +5,7 @@
       <div class="modal-container">
         <div class="modal-header">
           <slot name="header" />
+          <button class="close-button" @click="handleSubmit">X</button>
         </div>
 
         <div class="content-center">
@@ -22,6 +23,9 @@
 
               <label>Prescribing Physician:</label>
               <input type="text" v-model="doctor" />
+
+              <label>Date & Time:</label>
+              <input type="datetime-local" v-model="time_date" />
 
             </form>
           </div>
@@ -55,6 +59,7 @@ export default {
       reason: "",
       frequency: 0,
       doctor: "",
+      time_date:"",
       modalError: "",
     }
   },
@@ -76,6 +81,7 @@ export default {
             reason: this.reason,
             frequency: this.frequency,
             doctor: this.doctor,
+            time_date: this.time_date,
           })
         })
           .then(response => response.json())
@@ -88,11 +94,15 @@ export default {
             this.reason = '';
             this.frequency = 0;
             this.doctor = '';
+            this.time_date;
             this.$emit('close')
           })
           .catch(error => {
             console.log(error);
           });
+      } else {
+        //if no date is entered, close the modal 
+        this.$emit('close');
       }
     },
   }

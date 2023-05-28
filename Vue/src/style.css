@@ -165,6 +165,23 @@ label {
   transform: scale(1.1);
 }
 
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  color: #000000;
+  border: none;
+  font-weight: bold;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* MEDICATION CARDS */
 h2 {
   font-size: 2em;
