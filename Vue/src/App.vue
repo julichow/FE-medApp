@@ -24,7 +24,7 @@
     <div ref="medications">
     <!-- step 2: pass the prop down, using attributes -->
       <Home v-if="Selected"  @updatedmedCards="updateMeds" />
-      <Medications v-else="!Selected" :cards="medCards" @deleted="deleteCard"/>
+      <Medications v-else="!Selected" :cards="medCards" @delete="deleteCard"/>
     </div>
 </template>
 

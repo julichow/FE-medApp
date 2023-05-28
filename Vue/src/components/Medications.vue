@@ -43,10 +43,9 @@
         <label>Prescribing Physician:</label>
         <input type="text" v-model="doctor" />
 
-        <label>Date and Time:</label>
-        <input type="datetime-local" v-model="date_time" />
-
-        <button type="submit">Save & Continue</button>
+        <button type="submit">
+  {{ selectedMedicationId ? "Save" : "Update & Save" }}
+</button>
       </form>
     </div>
   </ul>
@@ -60,12 +59,12 @@ export default {
   props: ["cards"],
   data() {
     return {
+      selectedMedicationId: null,
       name: "",
       dose: "",
       reason: "",
       frequency: 0,
       doctor: "",
-      date_time: "",
     };
   },
   methods: {
@@ -84,46 +83,66 @@ export default {
       }
     },
     handleEdit(card) {
+      this.selectedMedicationId = card.id;
       this.name = card.name;
       this.dose = card.dose;
       this.reason = card.reason;
       this.frequency = card.frequency;
       this.doctor = card.doctor;
-      this.date_time = card.date_time;
     },
     handleSubmit(event) {
-      event.preventDefault();
+  event.preventDefault();
 
-      const updatedData = {
-        name: this.name,
-        dose: this.dose,
-        reason: this.reason,
-        frequency: this.frequency,
-        doctor: this.doctor,
-        date_time: this.date_time,
-      };
+  const updatedData = {
+    name: this.name,
+    dose: this.dose,
+    reason: this.reason,
+    frequency: this.frequency,
+    doctor: this.doctor,
+  };
 
-      // Make the PUT request to update the medication
-      fetch(`http://localhost:4000/medications/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updatedData),
+  if (this.selectedMedicationId) {
+    // Update the existing medication
+    fetch(`http://localhost:4000/medications/${this.selectedMedicationId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedData),
+    })
+      .then(response => response.json())
+      .then(data => {
+        this.$emit("put", data);
+        // Clear the form after successful update
+        this.clearForm();
       })
-        .then(response => response.json())
-        .then(data => {
-          this.$emit("put", data);
-          // Clear the form after successful submission
-          this.name = "";
-          this.dose = "";
-          this.reason = "";
-          this.frequency = 0;
-          this.doctor = "";
-          this.date_time = "";
-        })
-        .catch(error => {
-          console.log(error);
-        });
+      .catch(error => {
+        console.log(error);
+      });
+  } else {
+    // Create a new medication
+    fetch("http://localhost:4000/medications", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedData),
+    })
+      .then(response => response.json())
+      .then(data => {
+        this.$emit("put", data);
+        // Clear the form after successful creation
+        this.clearForm();
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
     },
+    clearForm() {
+  this.selectedMedicationId = null;
+  this.name = "";
+  this.dose = "";
+  this.reason = "";
+  this.frequency = 0;
+  this.doctor = "";
+},
     formatDate(date) {
       return moment(date).format('YYYY-MM-DD HH:mm:ss');
     }
