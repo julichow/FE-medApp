@@ -68,6 +68,9 @@ export default {
        this.showModal = true
      }
    },
+   updateMeds(meds) {
+    this.medCards = [...meds];
+    },
  }
 }
 </script>

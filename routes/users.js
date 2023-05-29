@@ -3,7 +3,7 @@ var router = express.Router();
 const db = require("../model/helper");
 require("dotenv").config();
 
-//1. install jsonwebtoken & bcrypt packages
+//1. install jsonwebtoken (token purpose) & bcrypt (encryption purpose) packages
 //2. require jsonwebtoken & bcrypt
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcrypt")
@@ -14,13 +14,7 @@ const saltRounds = 10;
 //variable needed for creating the token
 const supersecret = process.env.SUPER_SECRET;
 
-// /* GET users listing. */
-// router.get("/", function (req, res, next) {
-//   res.send("respond with a resource");
-// });
-
 /*****  REGISTRATION *****/
-
 router.post("/register", async (req, res) => {
   //1. get user info from request body
   const { name, email, username, password } = req.body;
@@ -29,7 +23,7 @@ router.post("/register", async (req, res) => {
     const hashedPwd = await bcrypt.hash(password, saltRounds)
     console.log(hashedPwd);
 //3. create a new user on DB to store user credentials 
-    await db(`INSERT into users (name, email, username, password) VALUES ('${name}', '${email}, '${username}, '${hashedPwd}');`);
+    await db(`INSERT into users (name, email, username, password) VALUES ('${name}', '${email}', '${username}', '${hashedPwd}');`);
   //4. respond with ok
     res.status(200).send({ message: "Registration successful" });
   } catch (err) {
@@ -38,12 +32,11 @@ router.post("/register", async (req, res) => {
 });
 
 /***** LOGIN *****/
-
 router.post("/login", async (req, res) => {
   const { username, password } = req.body
   try {
     //1. check if user exits on DB
-    const results = await db(`SELECT * FROM users WHERE username = '${username};`);
+    const results = await db(`SELECT * FROM users WHERE username = '${username}';`);
     console.log(results);
     //DB returns an object with data array
     const user = results.data[0];
@@ -56,6 +49,8 @@ router.post("/login", async (req, res) => {
       //3. create token using user id (=> 'sign()')
       //receive user id from DB
       let payload = { userID: user.id };
+      console.log("Super Secret:", supersecret);
+      console.log('SUPER_SECRET:', process.env.SUPER_SECRET);
       const token = jwt.sign(payload, supersecret);
       //4. respond with token
       res.status(200).send(token);
