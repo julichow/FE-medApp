@@ -261,6 +261,44 @@ h2 {
   color: #ffffff;
 }
 
+.edit-form {
+  margin-top: 20px;
+  padding: 40px;
+  background-color: #f2f2f2;
+  border-radius: 40px;
+  margin-left: 96px;
+  margin-right: 160px;
+  margin-bottom: 50px;
+}
+
+.edit-close-button {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  color: #000000;
+  border: none;
+  font-weight: bold;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  margin-left: 96%
+}
+
+.edit-button {
+  padding: 15px;
+  font-weight: bold;
+  background-color: #d9d9d9;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 25px;
+}
+
+.edit-button:hover {
+  background-color: #e6e6e6;
+}
+
 /* RESPONSIVE ELEMENTS */
 @media screen and (max-width: 800px) {
   input[type="submit"] {

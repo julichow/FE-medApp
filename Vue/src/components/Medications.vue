@@ -26,7 +26,8 @@
         </div>
       </li>
     </div>
-    <div v-if="showEditForm"> 
+    <div v-if="showEditForm" class="edit-form"> 
+      <div class="edit-close-button" @click="handleCloseForm">X</div>
       <form @submit="handleSubmit">
         <label>Name:</label>
         <input type="text" v-model="name" />
@@ -45,8 +46,8 @@
 
         <label>Date and Time:</label>
         <input type="datetime-local" v-model="date_time" />
-       
-      <button type="submit">Update & Save</button>
+
+      <button type="submit" class="edit-button">Update & Save</button>
 
       </form>
     </div>
@@ -126,7 +127,10 @@ export default {
     },
     formatDate(date) {
       return moment(date).format('YYYY-MM-DD HH:mm:ss');
-    }
+    },
+    handleCloseForm() {
+      this.showEditForm = false;
+    },
   }
 }
 </script>

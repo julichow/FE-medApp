@@ -11,7 +11,7 @@
        <div class="inputarea">
          
          <!-- required prevent form submission if the input field is empty -->
-         <input class="textbox" type="text" required v-model="name" placeholder="e.g. Tylenol" />
+         <input type="text" required v-model="name" placeholder="e.g. Tylenol" />
 
            <!-- checkInput is triggered when Enter button clicked -->
          <button
