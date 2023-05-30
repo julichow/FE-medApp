@@ -26,6 +26,7 @@
 
      <!-- MODAL POP UP COMPONENT-->
      <!-- step 2:Passing from modal to medication updated medcards array using $emit-->
+     <!-- updateMeds method is called in the Home component when Modal emits the updatedmedCards -->
      <Modal :show="showModal" @close="showModal = false" :medname="name" @updatedmedCards="updateMeds">
      <template #header>
       <h2 class=" w-3/4 w-1.5 border-b-2 border-gray-300">{{ name }}</h2>
@@ -65,11 +66,12 @@ export default {
 
    //if input field is not empty, it will display the Modal component 
      if (this.nameError === "") {
-       this.showModal = true
+       this.showModal = true;
      }
    },
    updateMeds(meds) {
-    this.medCards = [...meds];
+    //updatedmedCards will be emitted again to App.vue
+    this.$emit('updatedmedCards', meds)
     },
  }
 }

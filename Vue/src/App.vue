@@ -56,6 +56,7 @@ export default {
     deleteCard(meds) {
       this.medCards = [...meds]
     },
+  //updated with the new perscription data 
   updateMeds(meds) {
     this.medCards = [...meds];
     }

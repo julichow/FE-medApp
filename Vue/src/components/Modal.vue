@@ -88,6 +88,7 @@ export default {
           //POST data to medCards array by creating a copy with spread operator and adding new inputs
 
           .then(data => {
+            //when handleSubmit() is executed, it emits updatedmedCards to Home.vue
             this.$emit('updatedmedCards', data)
             //Reset modal
             this.dose = '';
