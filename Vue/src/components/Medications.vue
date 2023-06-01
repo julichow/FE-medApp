@@ -15,7 +15,7 @@
 
           <p v-if="card.doctor"><strong>Prescribing Physician:</strong> {{ card.doctor }}</p>
 
-          <p v-if="card.date_time"><strong>Date and Time:</strong> {{ formatDate(card.date_time) }}</p>
+          <p v-if="card.date_time"><strong>Medication Intake Time:</strong> {{ formatDate(card.date_time) }}</p>
 
           <button @click="handleDelete(card.id)">
             <img src="../assets/delete.png" class="delete-icon">
@@ -44,7 +44,7 @@
         <label>Prescribing Physician:</label>
         <input type="text" v-model="doctor" />
 
-        <label>Date and Time:</label>
+        <label>Medication Intake Time:</label>
         <input type="datetime-local" v-model="date_time" />
 
       <button type="submit" class="edit-button">Update & Save</button>
@@ -79,7 +79,7 @@ export default {
         })
           .then(response => response.json())
           .then(data => {
-            this.$emit('delete', data);
+            this.$emit('update', data);
           })
           .catch(error => {
             console.log(error);
@@ -87,7 +87,7 @@ export default {
       }
     },
     handleEdit(card) {
-      const formattedDateTime = moment(card.date_time).format('YYYY-MM-DDTHH:mm');
+      const formattedDateTime = moment(card.date_time).format('YYYY-MM-DD HH:mm:SS');
       
       this.selectedMedicationId = card.id;
       this.name = card.name;
@@ -101,7 +101,7 @@ export default {
     },
     handleSubmit() {
       
-      const formattedDateTime = moment(this.time_date).format('YYYY-MM-DD HH:mm:ss');
+      const formattedDateTime = moment(this.date_time).format('YYYY-MM-DD hh:mm A');
       
       const updatedData = {
         name: this.name,
@@ -117,16 +117,19 @@ export default {
         headers: { "Content-Type": "application/json"},
         body: JSON.stringify(updatedData),
       })
-        .then(response => response.json())
+        .then(response => response.json()) 
         .then(data => {
-          this.$emit("put", data);
+          this.$emit('update', data);
         })
         .catch(error => {
           console.log(error);
         });
+        // Prevent the form from reloading the page
+      event.preventDefault();
+      this.showEditForm = false;
     },
     formatDate(date) {
-      return moment(date).format('YYYY-MM-DD HH:mm:ss');
+      return moment(date).format('YYYY-MM-DD hh:mm A');
     },
     handleCloseForm() {
       this.showEditForm = false;

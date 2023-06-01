@@ -24,7 +24,7 @@
     <div ref="medications">
     <!-- step 2: pass the prop down, using attributes -->
       <Home v-if="Selected"  @updatedmedCards="updateMeds" />
-      <Medications v-else="!Selected" :cards="medCards" @delete="deleteCard"/>
+      <Medications v-else="!Selected" :cards="medCards" @update="updateCard"/>
     </div>
 </template>
 
@@ -53,7 +53,7 @@ export default {
     }
   },
   methods: {
-    deleteCard(meds) {
+    updateCard(meds) {
       this.medCards = [...meds]
     },
   //updated with the new perscription data 

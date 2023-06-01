@@ -52,7 +52,7 @@ view data via postman POST: localhost:4000/medications
 
 router.post("/medications", async (req, res, next) => {
   const { name, dose, reason, frequency, doctor, date_time } = req.body;
-  const formattedDateTime = moment(date_time).format('YYYY-MM-DD HH:mm:ss');
+  const formattedDateTime = moment(date_time).format('YYYY-MM-DD HH:mm:SS');
 //console.log(req.body)
   try {
     //insert new medication. Id will be auto incremented
@@ -103,9 +103,10 @@ router.put("/medications/:id", async (req, res, next) => {
   //console.log(req.params)
   const { name, dose, reason, frequency, doctor, date_time } = req.body;
   //console.log(req.body)
+  const formattedDateTime = moment(date_time).format('YYYY-MM-DD HH:mm:SS');
   try {
     // Update the medication with the specified id
-    await db(`UPDATE medications SET name='${name}', dose='${dose}', reason='${reason}', frequency='${frequency}', doctor='${doctor}', date_time='${date_time}' WHERE id=${id};`);
+    await db(`UPDATE medications SET name='${name}', dose='${dose}', reason='${reason}', frequency='${frequency}', doctor='${doctor}', date_time='${formattedDateTime}' WHERE id=${id};`);
     // Get an updated list of medications
     let results = await db("SELECT * FROM medications;");
     res.send(results.data);

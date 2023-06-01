@@ -24,7 +24,7 @@
               <label>Prescribing Physician:</label>
               <input type="text" v-model="doctor" />
 
-              <label>Date & Time:</label>
+              <label>Medication Intake Time:</label>
               <input type="datetime-local" v-model="time_date" />
 
             </form>
