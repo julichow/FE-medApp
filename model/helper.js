@@ -11,12 +11,14 @@ module.exports = async function db(query) {
     const DB_USER = process.env.DB_USER;
     const DB_PASS = process.env.DB_PASS;
     const DB_NAME = process.env.DB_NAME;
+    const DB_PORT = process.env.DB_PORT;
 
     const con = mysql.createConnection({
       host: DB_HOST || "127.0.0.1",
       user: DB_USER || "root",
       password: DB_PASS || "root",
       database: DB_NAME || "medications",
+      port: DB_PORT || "3306",
       multipleStatements: true,
     });
 
@@ -52,6 +54,9 @@ module.exports = async function db(query) {
           // push the first item in result list to data (this accounts for situations
           // such as when the query ends with SELECT LAST_INSERT_ID() and returns an insertId)
           results.data.push(result[0]);
+        } else {
+          //for mysql2 results data structure
+          result.forEach(row => results.data.push(row));
         }
 
         con.end();
