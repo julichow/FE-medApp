@@ -15,14 +15,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 // Serve static files from the React frontend app
-app.use(express.static(path.join(__dirname, "/client/dist")));
+app.use(express.static(path.join(__dirname, "/Vue/dist")));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 
 // Anything that doesn't match the above, send back index.html
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname + "/client/dist/index.html"));
+  res.sendFile(path.join(__dirname + "/Vue/dist/index.html"));
   });
 
 module.exports = app;
