@@ -1,5 +1,6 @@
 require("dotenv").config();
 const mysql = require("mysql2");
+const fs = require("fs");
 
 const DB_HOST = process.env.DB_HOST;
 const DB_USER = process.env.DB_USER;
@@ -16,13 +17,13 @@ const con = mysql.createConnection({
   multipleStatements: true,
 });
 
-con.connect(function (err) {
+con.connect(function(err) {
   if (err) throw err;
-  console.log("Connected!");
-
-  let sql =
-    "DROP TABLE if exists medications; CREATE TABLE medications(id INT NOT NULL AUTO_INCREMENT, name VARCHAR(255), reason VARCHAR(255), frequency INT, dose VARCHAR(255), doctor VARCHAR(255), date_time DATETIME, PRIMARY KEY (id));";
-  con.query(sql, function (err, result) {
+  console.log("Connected!"); 
+ 
+  let sql = fs.readFileSync(__dirname+"/init_db.sql").toString();  
+  
+  con.query(sql, function(err, result) {
     if (err) throw err;
     console.log("Table creation `medications` was successful!");
 
@@ -31,3 +32,4 @@ con.connect(function (err) {
 
   con.end();
 });
+
