@@ -1,8 +1,8 @@
--- Create medications table
+-- Create prescriptions table
 
-DROP TABLE IF EXISTS perscriptions; 
+DROP TABLE IF EXISTS prescriptions; 
 
-CREATE TABLE perscriptions (
+CREATE TABLE prescriptions (
   id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(255),
   reason VARCHAR(255),
@@ -13,7 +13,7 @@ CREATE TABLE perscriptions (
   PRIMARY KEY(id)
   );
 
-INSERT INTO medications (name, reason, frequency, dose, doctor, date_time)
+INSERT INTO prescriptions (name, reason, frequency, dose, doctor, date_time)
 VALUES
   ('Haldol', 'Schizophrenia', 1, '20mg', 'A. Samson', '2023-08-19 16:26:23'),
   ('Gabapentin', 'Seizures', 3, '10mg', 'P. Wick', '2023-07-17 08:30:23'),
