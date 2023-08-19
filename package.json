@@ -5,7 +5,7 @@
   "scripts": {
     "start": "nodemon ./bin/www",
     "migrate": "node model/database.js",
-    "build": "vue-tsc && vite build"
+    "build": "cd Vue && vite build"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
