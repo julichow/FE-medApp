@@ -1,8 +1,8 @@
 -- Create medications table
 
-DROP TABLE IF EXISTS medications; 
+DROP TABLE IF EXISTS perscriptions; 
 
-CREATE TABLE medications(
+CREATE TABLE perscriptions (
   id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(255),
   reason VARCHAR(255),
