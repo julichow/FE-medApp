@@ -47,7 +47,7 @@ router.get("/", async (req, res, next) => {
 // });
 
 /* POST a new medication to the list
-view data via postman POST: localhost:4000/medications
+view data via postman POST: localhost:4000/prescriptions
 */
 
 router.post("/prescriptions", async (req, res, next) => {
@@ -77,7 +77,7 @@ router.post("/prescriptions", async (req, res, next) => {
 // });
 
 /* DELETE a medication to the list
-view data via postman POST: localhost:4000/medications/:id
+view data via postman POST: localhost:4000/prescriptions/:id
 */
 
 router.delete("/prescriptions/:id", async (req, res, next) => {
@@ -95,7 +95,7 @@ router.delete("/prescriptions/:id", async (req, res, next) => {
 });
 
 /* UPDATE a medication to the list
-view data via postman PUT: localhost:4000/medications/:id
+view data via postman PUT: localhost:4000/prescriptions/:id
 */
 
 router.put("/prescriptions/:id", async (req, res, next) => {
