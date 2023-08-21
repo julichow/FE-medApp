@@ -5,7 +5,7 @@
   "scripts": {
     "start": "nodemon ./bin/www",
     "migrate": "node model/database.js",
-    "build": "npm install && npm run build"
+    "build": "cd Vue && npm install && npm run build"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
