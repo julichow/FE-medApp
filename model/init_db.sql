@@ -1,4 +1,4 @@
--- Create prescriptions table
+-- Create prescriptions table 
 
 DROP TABLE IF EXISTS prescriptions; 
 
