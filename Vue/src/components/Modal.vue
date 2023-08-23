@@ -72,7 +72,7 @@ export default {
         // this.handlePost()
         //   }
 
-        fetch('http://localhost:4000/medications', {
+        fetch('http://localhost:4000/prescriptions', {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({

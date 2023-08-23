@@ -3,15 +3,6 @@ var router = express.Router();
 const db = require("../model/helper");
 const moment = require('moment');
 
-// GET list of medications 
-// router.get("/", function (req, res, next) {
-//   db("SELECT * FROM medications;")
-//     .then((result) => {
-//       res.send(result.data);
-//     })
-//     .catch((err) => res.status(500).send(err));
-// });
-
 /* GET list of perscriptions
 view data via postman GET: localhost:4000
 */
@@ -19,32 +10,12 @@ view data via postman GET: localhost:4000
 router.get("/", async (req, res, next) => {
   try {
     let results = await db("SELECT * FROM prescriptions;");
-    // console.log("RESULTS: ", results);
+    console.log("RESULTS: ", results);
     res.send(results.data);
   } catch (err) {
     res.status(500).send({ error: err.message });
   }
 });
-
-
-// POST a new medication to the list
-// router.post("/", function (req, res, next) {
-//   let name = req.body.name;
-//   let dose = req.body.dose;
-//   let reason = req.body.reason;
-//   let frequency = req.body.frequency;
-//   let doctor = req.body.doctor;
-//   db(
-//     `INSERT INTO medications (name, dose, reason, frequency, doctor) VALUES ('${name}','${dose}','${reason}','${frequency}','${doctor}');`
-//   ).then((result) => {
-//     //using .then return the list of medications from GET
-//     db("SELECT * FROM medications;")
-//       .then((result) => {
-//         res.send(result.data);
-//       })
-//       .catch((err) => res.status(500).send(err));
-//   });
-// });
 
 /* POST a new medication to the list
 view data via postman POST: localhost:4000/prescriptions
@@ -65,17 +36,6 @@ router.post("/prescriptions", async (req, res, next) => {
   }
 });
 
-// router.delete("/:id", function (req, res) {
-//   console.log(req.params.id);
-//   db(`DELETE FROM medications WHERE id = ${req.params.id};`).then((result) => {
-//     db("SELECT * FROM medications;")
-//       .then((result) => {
-//         res.send(result.data);
-//       })
-//       .catch((err) => res.status(500).send(err));
-//   });
-// });
-
 /* DELETE a medication to the list
 view data via postman POST: localhost:4000/prescriptions/:id
 */
@@ -94,15 +54,15 @@ router.delete("/prescriptions/:id", async (req, res, next) => {
   }
 });
 
-/* UPDATE a medication to the list
+/* UPDATE a prescriptions to the list
 view data via postman PUT: localhost:4000/prescriptions/:id
 */
 
 router.put("/prescriptions/:id", async (req, res, next) => {
   const { id } = req.params;
-  //console.log(req.params)
+  // console.log(req.params)
   const { name, dose, reason, frequency, doctor, date_time } = req.body;
-  //console.log(req.body)
+  // console.log(req.body)
   const formattedDateTime = moment(date_time).format('YYYY-MM-DD HH:mm:SS');
   try {
     // Update the medication with the specified id
