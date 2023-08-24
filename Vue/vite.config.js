@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [vue()],
   server: {
     proxy: {
-      "/api": {
+      "/prescriptions": {
         target: "http://localhost:4000",
         changeOrigin: true,
         secure: false,
