@@ -7,7 +7,7 @@ const moment = require('moment');
 view data via postman GET: localhost:4000
 */
 
-router.get("/", async (req, res, next) => {
+router.get("/prescriptions", async (req, res, next) => {
   try {
     let results = await db("SELECT * FROM prescriptions;");
     // console.log("RESULTS: ", results);
