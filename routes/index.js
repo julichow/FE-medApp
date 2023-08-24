@@ -10,7 +10,7 @@ view data via postman GET: localhost:4000
 router.get("/", async (req, res, next) => {
   try {
     let results = await db("SELECT * FROM prescriptions;");
-    console.log("RESULTS: ", results);
+    // console.log("RESULTS: ", results);
     res.send(results.data);
   } catch (err) {
     res.status(500).send({ error: err.message });

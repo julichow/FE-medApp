@@ -74,7 +74,7 @@ export default {
   methods: {
     handleDelete(id) {
       if (confirm(`Are you sure you want to remove this?`)) {
-        fetch(`http://localhost:4000/prescriptions/${id}`, {
+        fetch(`http://medapp.up.railway.app/prescriptions/${id}`, {
           method: "DELETE",
         })
           .then(response => response.json())
@@ -112,7 +112,7 @@ export default {
         date_time: formattedDateTime,
       };
 
-      fetch(`http://localhost:4000/prescriptions/${this.selectedMedicationId}`, {
+      fetch(`http://medapp.up.railway.app/prescriptions/${this.selectedMedicationId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json"},
         body: JSON.stringify(updatedData),

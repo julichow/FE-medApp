@@ -30,6 +30,9 @@ Full Stack application created using Vue, Node/Express, and MySQL.
 - View the [_Flowchart_](public/images/flowchart.png)
 - Users may delete medication cards
 
-## Notes
+## Resources
 
-_This is a student project that was created at [CodeOp](http://CodeOp.tech), a full stack development bootcamp in Barcelona._
+- [MySQL Cheat Sheet](http://www.mysqltutorial.org/mysql-cheat-sheet.aspx)
+- [MySQL](https://dev.mysql.com/doc/refman/8.0/en/database-use.html)
+- [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
+- [Vue Documentation](https://vuejs.org/guide/introduction.html)
