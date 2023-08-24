@@ -63,7 +63,7 @@ export default {
   },
   //GET list of medications from database
   created() {
-    fetch('http://localhost:4000/')
+    fetch('/prescriptions')
       .then(res => res.json())
       .then(data => (this.medCards = data))
       .catch(err => console.log(err.message))
