@@ -1,3 +1,7 @@
 .env
 node_modules/
 .DS_Store
+.env*
+.flaskenv*
+!.env.project
+!.env.vault
