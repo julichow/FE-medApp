@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
-    "dev": "nodemon ./bin/www",
     "migrate": "node model/database.js",
     "build": "cd Vue && npm install && npm run build"
   },
